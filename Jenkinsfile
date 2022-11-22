@@ -12,8 +12,15 @@ pipeline {
         beforeAgent true
       }
 
+        // agent docker 7.5.1-jdk17-focal
+      agent {
+        docker {
+            image '7.5.1-jdk17-focal'
+        }
+      }
+
       steps {
-        echo 'Build Message'
+        echo 'Build feature'
       }
     }
     stage('Testing feature') {
