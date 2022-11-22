@@ -42,6 +42,13 @@ pipeline {
          sh 'gradle test'
          publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
       }
+
+      post {
+        always {
+            // junit tests
+            junit 'build/test-results/test/*.xml'
+        }
+      }
     }
 
     stage('Integrate Feature') {
