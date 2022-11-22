@@ -95,7 +95,7 @@ pipeline {
           }
 
               // agent docker 7.5.1-jdk17-focal
-            agent {
+           agent {
               docker {
                   image 'gradle:7.5.1-jdk17-focal'
               }
@@ -103,16 +103,43 @@ pipeline {
 
           steps {
             echo 'Build Integrate'
+            sh 'ls -al'
+            sh 'gradle clean build -x test'
           }
-        }
+    }
 
-            stage('Test Integrate') {
-              steps {
-                echo 'Test Integrate'
+    stage('Test Integrate') {
+
+          when {
+            branch 'Integration'
+            beforeAgent true
+          }
+
+              // agent docker 7.5.1-jdk17-focal
+            agent {
+              docker {
+                  image 'gradle:7.5.1-jdk17-focal'
               }
             }
 
-                stage('Deploy Integrate') {
+              steps {
+                echo 'Test Integrate'
+                sh 'gradle test'
+              }
+
+            post {
+              always {
+                  // junit tests
+                  junit 'build/test-results/test/*.xml'
+              }
+
+              success {
+                  publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+              }
+           }
+       }
+
+    stage('Deploy Integrate') {
                   steps {
                     echo 'Deploy integrate'
                   }
