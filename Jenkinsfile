@@ -95,7 +95,7 @@ pipeline {
           }
 
               // agent docker 7.5.1-jdk17-focal
-            agent {
+           agent {
               docker {
                   image 'gradle:7.5.1-jdk17-focal'
               }
@@ -136,7 +136,8 @@ pipeline {
               success {
                   publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
               }
-            }
+           }
+       }
 
     stage('Deploy Integrate') {
                   steps {
