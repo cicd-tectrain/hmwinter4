@@ -87,5 +87,36 @@ pipeline {
       }
     }
 
+    stage('Build Integrate') {
+
+          when {
+            branch 'Integration'
+            beforeAgent true
+          }
+
+              // agent docker 7.5.1-jdk17-focal
+            agent {
+              docker {
+                  image 'gradle:7.5.1-jdk17-focal'
+              }
+            }
+
+          steps {
+            echo 'Build Integrate'
+          }
+        }
+
+            stage('Test Integrate') {
+              steps {
+                echo 'Test Integrate'
+              }
+            }
+
+                stage('Deploy Integrate') {
+                  steps {
+                    echo 'Deploy integrate'
+                  }
+                }
+
   }
 }
