@@ -16,7 +16,7 @@ pipeline {
         echo 'Build Message'
       }
     }
-    stage('Test') {
+    stage('Testing feature') {
           when {
             branch 'feature/*'
             beforeAgent true
@@ -27,14 +27,14 @@ pipeline {
       }
     }
 
-    stage('Integrate') {
+    stage('Integrate Feature') {
               when {
                 branch 'feature/*'
                 beforeAgent true
               }
 
       steps {
-        echo 'Integrate message'
+        echo 'Integrate feature'
       }
     }
 
