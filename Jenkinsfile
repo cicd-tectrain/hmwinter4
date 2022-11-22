@@ -6,6 +6,7 @@ pipeline {
 
   environment {
     INTEGRATION_BRANCH = 'Integration'
+    PRODUCTION_BRANCH = 'master'
   }
 
   stages {
@@ -137,6 +138,28 @@ pipeline {
                   publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
               }
            }
+       }
+
+       stage ('Merge into master')
+       {
+                     when {
+                       branch 'Integration'
+                       beforeAgent true
+                     }
+
+             steps {
+               echo 'Integrate feature'
+                       sh 'ls -al'
+                       sh 'git branch -a'
+                       sh 'git checkout ${BRANCH_NAME}'
+                       sh 'git checkout ${PRODUCTION_BRANCH}'
+                       sh 'git merge ${BRANCH_NAME}'
+                       withCredentials([gitUsernamePassword(credentialsId: 'github_cicd_pat', gitToolName: 'Default')])
+                       {
+                           // some block
+                           sh 'git push origin ${PRODUCTION_BRANCH}'
+                       }
+             }
        }
 
     stage('Deploy Integrate') {
