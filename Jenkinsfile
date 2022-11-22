@@ -28,6 +28,11 @@ pipeline {
     }
 
     stage('Integrate') {
+              when {
+                branch 'feature/*'
+                beforeAgent true
+              }
+
       steps {
         echo 'Integrate message'
       }
