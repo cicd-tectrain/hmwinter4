@@ -183,8 +183,15 @@ pipeline {
        }
 
     stage('Deploy Integrate') {
+                when {
+                  branch 'Integration'
+                  beforeAgent true
+                }
+
+
                   steps {
                     echo 'Deploy integrate'
+                    sh 'docker info'
                   }
                 }
 
