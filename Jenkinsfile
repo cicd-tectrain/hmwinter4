@@ -5,11 +5,13 @@ pipeline {
   agent any
   stages {
 
+    stage('Build') {
+
       when {
         branch 'feature/*'
+        beforeAgent true
       }
 
-    stage('Build') {
       steps {
         echo 'Build Message'
       }
