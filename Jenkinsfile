@@ -21,6 +21,8 @@ pipeline {
 
       steps {
         echo 'Build feature'
+        sh 'ls -al'
+        sh 'gradle clean build -x test'
       }
     }
     stage('Testing feature') {
@@ -28,9 +30,17 @@ pipeline {
             branch 'feature/*'
             beforeAgent true
           }
+        // agent docker 7.5.1-jdk17-focal
+      agent {
+        docker {
+            image 'gradle:7.5.1-jdk17-focal'
+        }
+      }
 
       steps {
         echo 'Test message'
+         sh 'gradle test'
+         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
       }
     }
 
