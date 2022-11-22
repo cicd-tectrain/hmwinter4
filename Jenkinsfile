@@ -178,7 +178,7 @@ pipeline {
         steps {
             echo 'Publish artefacts'
             sh 'ls -al'
-            nexusArtifactUploader artifacts: [[artifactId: 'at.tectrain.cicd', classifier: '', file: 'build/libs/demo-0.0.1-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus_credentials', groupId: '', nexusUrl: 'nexus:8081/repository/maven-snapshots/', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-snapshots', version: '0.0.1-SNAPSHOT'
+            nexusArtifactUploader artifacts: [[artifactId: 'at.tectrain.cicd', classifier: '', file: 'build/libs/demo-0.0.1-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus_credentials', groupId: '', nexusUrl: 'nexus:8081/repository/', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-snapshots', version: '0.0.1-SNAPSHOT'
         }
        }
 
