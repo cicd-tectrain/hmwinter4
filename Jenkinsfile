@@ -1,8 +1,14 @@
 // Basis Pipeline
 
+
 pipeline {
   agent any
   stages {
+
+      when {
+        branch 'feature/*'
+      }
+
     stage('Build') {
       steps {
         echo 'Build Message'
