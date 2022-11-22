@@ -11,8 +11,10 @@ pipeline {
   stages {
 
     stage('Log Environment') {
+    steps {
         echo "Local: ${BRANCH_NAME}"
         echo "Integration branch: ${INTEGRATION_BRANCH}"
+        }
     }
 
     stage('Build') {
