@@ -3,7 +3,17 @@
 
 pipeline {
   agent any
+
+  environment {
+    INTEGRATION_BRANCH = 'Integration'
+  }
+
   stages {
+
+    stage('Log Environment') {
+        echo "Local: ${BRANCH_NAME}"
+        echo "Integration branch: ${INTEGRATION_BRANCH}"
+    }
 
     stage('Build') {
 
