@@ -12,7 +12,7 @@ pipeline {
 
     stage('Log Environment') {
     steps {
-        echo "Local: ${BRANCH_NAME}"
+        echo "Local branch: ${BRANCH_NAME}"
         echo "Integration branch: ${INTEGRATION_BRANCH}"
         }
     }
@@ -76,13 +76,13 @@ pipeline {
         echo 'Integrate feature'
                 sh 'ls -al'
                 sh 'git branch -a'
-                sh 'git checkout feature/feature-1'
-                sh 'git checkout Integration'
-                sh 'git merge feature/feature-1'
+                sh 'git checkout ${BRANCH_NAME}'
+                sh 'git checkout ${INTEGRATION_BRANCH}'
+                sh 'git merge ${BRANCH_NAME}'
                 withCredentials([gitUsernamePassword(credentialsId: 'github_cicd_pat', gitToolName: 'Default')])
                 {
                     // some block
-                    sh 'git push origin Integration'
+                    sh 'git push origin ${INTEGRATION_BRANCH}'
                 }
       }
     }
