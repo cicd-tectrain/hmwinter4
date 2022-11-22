@@ -40,13 +40,16 @@ pipeline {
       steps {
         echo 'Test message'
          sh 'gradle test'
-         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
       }
 
       post {
         always {
             // junit tests
             junit 'build/test-results/test/*.xml'
+        }
+
+        success {
+            publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '')
         }
       }
     }
