@@ -17,6 +17,11 @@ pipeline {
       }
     }
     stage('Test') {
+          when {
+            branch 'feature/*'
+            beforeAgent true
+          }
+
       steps {
         echo 'Test message'
       }
