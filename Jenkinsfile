@@ -68,6 +68,7 @@ pipeline {
                 sh 'git checkout Integration'
                 sh 'git merge feature/feature-1'
                 withCredentials([gitUsernamePassword(credentialsId: 'github_cicd_pat', gitToolName: 'Default')])
+                {
                     // some block
                     sh 'git push origin Integration'
                 }
