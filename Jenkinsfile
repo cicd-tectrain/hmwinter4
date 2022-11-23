@@ -78,7 +78,6 @@ pipeline {
                 sh 'ls -al'
                 sh 'git branch -a'
                 sh 'git checkout ${BRANCH_NAME}'
-                sh 'git pull ${BRANCH_NAME}'
                 sh 'git checkout ${INTEGRATION_BRANCH}'
                 sh 'git merge ${BRANCH_NAME}'
                 withCredentials([gitUsernamePassword(credentialsId: 'github_cicd_pat', gitToolName: 'Default')])
@@ -159,6 +158,7 @@ pipeline {
                        sh 'ls -al'
                        sh 'git branch -a'
                        sh 'git checkout ${BRANCH_NAME}'
+                       sh 'git pull ${BRANCH_NAME}'
                        sh 'git checkout ${PRODUCTION_BRANCH}'
                        sh 'git merge ${BRANCH_NAME}'
                        withCredentials([gitUsernamePassword(credentialsId: 'github_cicd_pat', gitToolName: 'Default')])
