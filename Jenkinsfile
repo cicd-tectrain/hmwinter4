@@ -337,7 +337,7 @@ pipeline {
 
                                sh 'docker compose config'
 
-                               dir ('cd docker/production')
+                               dir ('docker/production')
                                {
 
                                    sh 'docker compose build production'
