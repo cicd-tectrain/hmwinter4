@@ -292,6 +292,26 @@ pipeline {
                }
            }
 
+             stage ('Publish master/main')
+             {
+                  when {
+                    branch 'master'
+                    beforeAgent true
+                  }
+
+                  agent {
+                    docker {
+                        image 'gradle:7.5.1-jdk17-focal'
+                    }
+                  }
+
+              steps {
+                  echo 'Publish artefacts'
+                  sh 'ls -al'
+                  nexusArtifactUploader artifacts: [[artifactId: 'at.tectrain.cicd', classifier: '', file: 'build/libs/demo-0.0.1-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus_credentials', groupId: '', nexusUrl: 'nexus:8081/repository/maven-snapshots/', nexusVersion: 'nexus3', protocol: 'http', repository: '', version: '0.0.1-SNAPSHOT'
+              }
+             }
+
               stage('Deploy main/master') {
                            when {
                              branch 'master'
@@ -336,26 +356,6 @@ pipeline {
                              }
 
                }
-
-                      stage ('Publish master/main')
-                      {
-                           when {
-                             branch 'master'
-                             beforeAgent true
-                           }
-
-                           agent {
-                             docker {
-                                 image 'gradle:7.5.1-jdk17-focal'
-                             }
-                           }
-
-                       steps {
-                           echo 'Publish artefacts'
-                           sh 'ls -al'
-                           nexusArtifactUploader artifacts: [[artifactId: 'at.tectrain.cicd', classifier: '', file: 'build/libs/demo-0.0.1-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus_credentials', groupId: '', nexusUrl: 'nexus:8081/repository/maven-snapshots/', nexusVersion: 'nexus3', protocol: 'http', repository: '', version: '0.0.1-SNAPSHOT'
-                       }
-                      }
 
   }
 }
