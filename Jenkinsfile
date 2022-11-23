@@ -158,7 +158,7 @@ pipeline {
                        sh 'ls -al'
                        sh 'git branch -a'
                        sh 'git checkout ${BRANCH_NAME}'
-                       sh 'git update'
+                       sh 'git pull origin ${BRANCH_NAME}'
                        sh 'git checkout ${PRODUCTION_BRANCH}'
                        sh 'git merge ${BRANCH_NAME}'
                        withCredentials([gitUsernamePassword(credentialsId: 'github_cicd_pat', gitToolName: 'Default')])
@@ -220,6 +220,9 @@ pipeline {
 
                     // push to registry
                     sh 'docker compose push testing'
+
+                    sh 'docker compose up -d --force-recreate testing'
+
                   }
 
                   // Post: Logout Docker
