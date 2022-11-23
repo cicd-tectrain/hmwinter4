@@ -220,12 +220,15 @@ pipeline {
                     // push to registry
                     sh 'docker compose push testing'
                   }
+
+                  // Post: Logout Docker
+                  post {
+                      always {
+                          sh 'docker logout nexus:5000'
+                      }
+                  }
+
                 }
-            // Post: Logout Docker
-            post {
-                always {
-                    sh 'docker logout nexus:5000'
-                }
-            }
+
   }
 }
