@@ -1,5 +1,4 @@
 services:
-
   production:
     image: nexus:5000/cicd/testing
     build:
