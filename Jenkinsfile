@@ -192,6 +192,7 @@ pipeline {
                   steps {
                     echo 'Deploy integrate'
                     sh 'docker info'
+                    sh 'docker compose version'
                   }
                 }
 
