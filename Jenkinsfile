@@ -195,6 +195,8 @@ pipeline {
 
                   steps {
                     echo 'Deploy integrate'
+                    sh 'ls -al build'
+
                     sh 'docker info'
                     sh 'docker compose version'
                     sh 'docker compose config'
