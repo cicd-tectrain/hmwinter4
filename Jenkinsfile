@@ -261,5 +261,36 @@ pipeline {
           }
     }
 
+    stage('Test main/master') {
+
+              when {
+                branch 'master'
+                beforeAgent true
+              }
+
+                  // agent docker 7.5.1-jdk17-focal
+                agent {
+                  docker {
+                      image 'gradle:7.5.1-jdk17-focal'
+                  }
+                }
+
+                  steps {
+                    echo 'Test main/master'
+                    sh 'gradle test'
+                  }
+
+                post {
+                  always {
+                      // junit tests
+                      junit 'build/test-results/test/*.xml'
+                  }
+
+                  success {
+                      publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+                  }
+               }
+           }
+
   }
 }
