@@ -237,7 +237,7 @@ pipeline {
    stage('Build main') {
 
           when {
-            branch 'main'
+            branch 'master'
             beforeAgent true
           }
 
