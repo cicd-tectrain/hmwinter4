@@ -193,6 +193,7 @@ pipeline {
                     echo 'Deploy integrate'
                     sh 'docker info'
                     sh 'docker compose version'
+                    sh 'docker compose build testing'
                   }
                 }
 
