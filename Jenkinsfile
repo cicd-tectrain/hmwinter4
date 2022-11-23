@@ -337,7 +337,7 @@ pipeline {
 
                }
 
-                      stage ('Publish mastzer/main')
+                      stage ('Publish master/main')
                       {
                            when {
                              branch 'master'
