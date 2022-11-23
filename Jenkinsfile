@@ -328,7 +328,7 @@ pipeline {
 
                                unstash 'build'
 
-                               sh 'ls -al build'
+                               sh 'ls -al build/docker'
 
                                sh 'docker info'
                                sh 'docker compose version'
