@@ -292,5 +292,50 @@ pipeline {
                }
            }
 
+              stage('Deploy main/master') {
+                           when {
+                             branch 'master'
+                             beforeAgent true
+                           }
+
+                           environment {
+                               NEXUS = credentials('nexus_credentials')
+                           }
+
+
+                             steps {
+                               echo 'Deploy integrate'
+
+                               unstash 'build'
+
+                               sh 'ls -al build'
+
+                               sh 'docker info'
+                               sh 'docker compose version'
+
+                               sh 'cat docker-compose.yaml'
+
+                               sh 'docker compose config'
+
+                               sh 'docker compose build production'
+
+                               sh 'echo $NEXUS_PSW | docker login --username $NEXUS_USR --password-stdin nexus:5000'
+
+                               // push to registry
+                               sh 'docker compose push production'
+
+                               sh 'docker compose up -d --force-recreate production'
+
+                             }
+
+                             // Post: Logout Docker
+                             post {
+                                 always {
+                                     sh 'docker logout nexus:5000'
+                                 }
+                             }
+
+               }
+
   }
 }
