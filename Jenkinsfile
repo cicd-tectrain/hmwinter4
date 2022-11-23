@@ -188,14 +188,22 @@ pipeline {
                   beforeAgent true
                 }
 
+                environment {
+                    NEXUS = credentials('nexus_credentials')
+                }
+
 
                   steps {
                     echo 'Deploy integrate'
                     sh 'docker info'
                     sh 'docker compose version'
+                    sh 'docker compose config'
+
                     sh 'docker compose build testing'
+
+                    sh 'docker login --user $NEXUS_USR --password $NEXUS_PSW nexus:5000'
                   }
                 }
-
+            // Post: Logout Docker
   }
 }
