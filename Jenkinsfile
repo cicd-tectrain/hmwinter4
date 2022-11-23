@@ -337,6 +337,8 @@ pipeline {
 
                                sh 'docker compose config'
 
+                               sh 'cd docker/production'
+
                                sh 'docker compose build production'
 
                                sh 'echo $NEXUS_PSW | docker login --username $NEXUS_USR --password-stdin nexus:5000'
