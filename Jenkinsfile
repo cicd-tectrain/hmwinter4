@@ -208,6 +208,9 @@ pipeline {
 
                     sh 'docker info'
                     sh 'docker compose version'
+
+                    sh 'cat docker-compose.yaml'
+
                     sh 'docker compose config'
 
                     sh 'docker compose build testing'

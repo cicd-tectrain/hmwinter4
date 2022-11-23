@@ -1,5 +1,4 @@
 services:
-
   testing:
     image: nexus:5000/cicd/testing
     build:
@@ -7,7 +6,6 @@ services:
       context: .
     ports:
       - "8090:8080"
-
   production:
     image: nexus:5000/cicd/testing
     build:
@@ -15,7 +13,6 @@ services:
       context: .
     ports:
       - "8091:8080"
-
   nexus:
     image: sonatype/nexus3
 
