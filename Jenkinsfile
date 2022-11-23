@@ -232,7 +232,34 @@ pipeline {
                       }
                   }
 
-                }
+    }
+
+   stage('Build main') {
+
+          when {
+            branch 'main'
+            beforeAgent true
+          }
+
+              // agent docker 7.5.1-jdk17-focal
+           agent {
+              docker {
+                  image 'gradle:7.5.1-jdk17-focal'
+              }
+            }
+
+          steps {
+            echo 'Build main'
+            sh 'ls -al'
+            sh 'gradle clean build -x test'
+          }
+
+          post {
+            success {
+                stash includes: 'build/', name: 'build'
+            }
+          }
+    }
 
   }
 }
