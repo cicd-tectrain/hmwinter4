@@ -1,6 +1,6 @@
 services:
   production:
-    image: nexus:5000/cicd/testing
+    image: nexus:5000/cicd/production
     build:
       dockerfile: docker/production/Dockerfile
       context: ../..
