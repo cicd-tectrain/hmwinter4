@@ -340,14 +340,14 @@ pipeline {
                                dir ('cd docker/production')
                                {
 
-                               sh 'docker compose build production'
+                                   sh 'docker compose build production'
 
-                               sh 'echo $NEXUS_PSW | docker login --username $NEXUS_USR --password-stdin nexus:5000'
+                                   sh 'echo $NEXUS_PSW | docker login --username $NEXUS_USR --password-stdin nexus:5000'
 
-                               // push to registry
-                               sh 'docker compose push production'
+                                   // push to registry
+                                   sh 'docker compose push production'
 
-                               sh 'docker compose up -d --force-recreate production'
+                                   sh 'docker compose up -d --force-recreate production'
                                }
 
                              }
