@@ -337,7 +337,8 @@ pipeline {
 
                                sh 'docker compose config'
 
-                               sh 'cd docker/production'
+                               dir ('cd docker/production')
+                               {
 
                                sh 'docker compose build production'
 
@@ -347,6 +348,7 @@ pipeline {
                                sh 'docker compose push production'
 
                                sh 'docker compose up -d --force-recreate production'
+                               }
 
                              }
 
