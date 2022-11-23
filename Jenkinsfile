@@ -107,6 +107,12 @@ pipeline {
             sh 'ls -al'
             sh 'gradle clean build -x test'
           }
+
+          post {
+            success {
+                stash includes: 'build', name: 'build'
+            }
+          }
     }
 
     stage('Test Integrate') {
@@ -195,6 +201,9 @@ pipeline {
 
                   steps {
                     echo 'Deploy integrate'
+
+                    unstash 'build'
+
                     sh 'ls -al build'
 
                     sh 'docker info'
